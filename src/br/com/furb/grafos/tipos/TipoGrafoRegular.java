@@ -1,19 +1,37 @@
 package br.com.furb.grafos.tipos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TipoGrafoRegular implements TipoGrafo {
 
+	private List<Integer> collections = new ArrayList<>();
+	
 	@Override
 	public String tipoGrafo(int[][] matrix) {
+		List<Integer> graus = new ArrayList<>();
+		collections.clear();
+		TipoGrafo grafo = new TipoGrafoMultigrafo();
+		String aux = grafo.tipoGrafo(matrix);
+		if (aux != null)
+			return null;
 		for (int x = 0; x < matrix.length; x++) {
-			for (int y = x; y < matrix.length; y++) {
-				int size = (matrix.length - 1);
-				int value = matrix[x][y];
-				int grau = matrix[size - x][size - y];
-				if (value != grau)
-					return null;
-			}
+			int grau = 0;
+			for (int y = x; y < matrix.length; y++)
+				grau += matrix[x][y];
+			graus.add(grau);
 		}
+		collections.addAll(graus);
+		// for (int x = 0; x < graus.size(); x++)
+
 		return "Regular,";
+	}
+	
+	protected boolean equals(Integer x){
+		for(Integer integer : collections)
+			if(!integer.equals(x))
+				return false;
+		return true;
 	}
 
 }

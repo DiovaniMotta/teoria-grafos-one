@@ -34,6 +34,10 @@ public class Grafo {
 		tipoGrafo.add(new TipoGrafoSimples());
 	}
 
+	public Grafo() {
+		init();
+	}
+
 	/**
 	 * Qual é o tipo do grafo (dirigido ou não, simples ou multigrafo, regular,
 	 * completo, nulo ou bipartido) nome do método: tipoDoGrafo parâmetro de
@@ -41,12 +45,11 @@ public class Grafo {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	public String tipoDeGrafo(int[][] matrix) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (TipoGrafo tipoGrafo : tipoGrafo) {
 			String retorno = tipoGrafo.tipoGrafo(matrix);
-			if (retorno != null || !retorno.isEmpty())
+			if (retorno != null && !retorno.isEmpty())
 				stringBuilder.append(retorno);
 		}
 		return stringBuilder.toString();
@@ -67,13 +70,13 @@ public class Grafo {
 				int value = matrix[x][y];
 				if (value != 0) {
 					count++;
-					builder.append("Aresta: "+x+"->"+y+";");
+					builder.append("Aresta: " + x + "->" + y + ";");
 					matrix[y][x] = 0;
 				}
 			}
 		}
 		StringBuilder parse = new StringBuilder();
-		parse.append("Número de Arestas: "+count+"\n");
+		parse.append("Número de Arestas: " + count + "\n");
 		parse.append(builder.toString());
 		return parse.toString();
 	}

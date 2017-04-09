@@ -92,7 +92,7 @@ public class Grafo {
 		StringBuilder builder = new StringBuilder();
 		for (int x = 0; x < matrix.length; x++) {
 			int grau = 0;
-			for (int y = x; y < matrix.length; y++)
+			for (int y = 0; y < matrix.length; y++)
 				grau += matrix[x][y];
 			builder.append("Vértice:" + x + ",Grau:" + grau + ";");
 		}

@@ -8,11 +8,16 @@ public class TipoGrafoBipartido implements TipoGrafo {
 	@Override
 	public String tipoGrafo(int[][] matrix) {
 		init(matrix);
+		TipoGrafo tipoGrafo = new TipoGrafoMultigrafo();
+		String multigrafo = tipoGrafo.tipoGrafo(matrix);
+		if(multigrafo != null)
+			return null;
 		this.matrix = matrix;
-		for(int x = 0 ; x < colors.length ; ++x)
+		for(int x = 0 ; x < colors.length ; ++x){
 			  if(colors[x] == -1)
 			   if(diffColor(x, 0) == 0) 
 				   return null;
+		}
 			 return "Bipartido,";
 	}
 
@@ -24,7 +29,7 @@ public class TipoGrafoBipartido implements TipoGrafo {
 
 	protected int diffColor(int v, int c) {
 		int p;
-		colors[v] = 1 - c; // ???
+		colors[v] = 1 - c; 
 		for (p = 0; p < colors.length; ++p) {
 			if (matrix[v][p] == 1 && colors[p] == -1) { 
 				if (diffColor(p, 1 - c) == 0)

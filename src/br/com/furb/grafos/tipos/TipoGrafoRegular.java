@@ -6,7 +6,7 @@ import java.util.List;
 public class TipoGrafoRegular implements TipoGrafo {
 
 	private List<Integer> collections = new ArrayList<>();
-	
+
 	@Override
 	public String tipoGrafo(int[][] matrix) {
 		List<Integer> graus = new ArrayList<>();
@@ -22,14 +22,17 @@ public class TipoGrafoRegular implements TipoGrafo {
 			graus.add(grau);
 		}
 		collections.addAll(graus);
-		// for (int x = 0; x < graus.size(); x++)
-
+		for (Integer integer : graus) {
+			boolean retorno = equals(integer);
+			if (!retorno)
+				return null;
+		}
 		return "Regular,";
 	}
-	
-	protected boolean equals(Integer x){
-		for(Integer integer : collections)
-			if(!integer.equals(x))
+
+	protected boolean equals(Integer x) {
+		for (Integer integer : collections)
+			if (!integer.equals(x) || integer == 0)
 				return false;
 		return true;
 	}

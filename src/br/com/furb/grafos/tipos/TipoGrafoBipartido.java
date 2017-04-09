@@ -10,15 +10,22 @@ public class TipoGrafoBipartido implements TipoGrafo {
 		init(matrix);
 		TipoGrafo tipoGrafo = new TipoGrafoMultigrafo();
 		String multigrafo = tipoGrafo.tipoGrafo(matrix);
-		if(multigrafo != null)
+		if (multigrafo != null)
 			return null;
 		this.matrix = matrix;
-		for(int x = 0 ; x < colors.length ; ++x){
-			  if(colors[x] == -1)
-			   if(diffColor(x, 0) == 0) 
-				   return null;
+		boolean bipartido = grafoBipartido();
+		if (!bipartido)
+			return null;
+		return "Bipartido,";
+	}
+
+	protected boolean grafoBipartido() {
+		for (int x = 0; x < colors.length; ++x) {
+			if (colors[x] == -1)
+				if (!diffColor(x, 0))
+					return false;
 		}
-			 return "Bipartido,";
+		return true;
 	}
 
 	protected void init(int[][] matrix) {
@@ -27,16 +34,15 @@ public class TipoGrafoBipartido implements TipoGrafo {
 			colors[x] = -1;
 	}
 
-	protected int diffColor(int v, int c) {
-		int p;
-		colors[v] = 1 - c; 
-		for (p = 0; p < colors.length; ++p) {
-			if (matrix[v][p] == 1 && colors[p] == -1) { 
-				if (diffColor(p, 1 - c) == 0)
-					return 0;
-			} else if (colors[p] == 1 - c)
-				return 0;
+	protected boolean diffColor(int v, int c) {
+		colors[v] = c;
+		for (int p = v; p < colors.length; p++) {
+			if (colors[p] == -1) {
+				if (!diffColor(p, 1 - c))
+					return false;
+			} else if (colors[p] == c)
+				return false;
 		}
-		return 1;
+		return true;
 	}
 }
